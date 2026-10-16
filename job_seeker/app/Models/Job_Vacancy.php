@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\Attributes\Guarded;
 
 class Job_Vacancy extends Model
 {
+protected $table = 'job_vacancies';
+
     public function user() {
         $this->belongsTo(User::class,'created_by');
     }

@@ -37,7 +37,7 @@ class ProfilePolicy
      */
     public function update(User $user, Seeker_Profile $seekerProfile): bool
     {
-        return $this->$user ;
+        return $this->$user_id === $resume_id || $user->role === 'admin';
     }
 
     /**

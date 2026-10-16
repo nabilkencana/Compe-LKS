@@ -54,7 +54,7 @@ class JobApplicationController extends Controller
          return response()->json([
                 'success' => 'true',
                 'message' => 'Apply Submitted',
-                'data' => $seeker
+                // 'data' => $seeker
             ],200);
     }
 

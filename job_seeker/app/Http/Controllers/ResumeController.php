@@ -19,7 +19,7 @@ class ResumeController extends Controller
         return response()->json([
                 'success' => 'true',
                 'message' => 'Seeker profile retrieved successfully.',
-                'data' => $seeker
+                // 'data' => $seeker
             ],200);
     }
 

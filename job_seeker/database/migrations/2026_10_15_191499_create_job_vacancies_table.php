@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('company_name');
             $table->string('location');
             $table->string('employment_type');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->enum('status',['published','unpublished'])->default('published');
             $table->timestamps();
         });
