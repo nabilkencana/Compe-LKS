@@ -18,7 +18,7 @@ return new class extends Migration
              $table->integer('usage_kwh');
              $table->integer('price_per_kwh');
              $table->integer('total_amount');
-             $table->integer('status');
+             $table->enum('status',['completed','pending']);
              $table->date('due_date');
             $table->timestamps();
         });

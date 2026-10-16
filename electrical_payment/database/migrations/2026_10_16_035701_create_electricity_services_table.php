@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('service_name');
             $table->integer('price_per_kwh');
             $table->string('status');
-            $table->string('desciption');
+            $table->string('description');
             $table->timestamps();
         });
     }

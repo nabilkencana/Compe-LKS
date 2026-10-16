@@ -17,6 +17,7 @@ return new class extends Migration
               $table->foreignId('electricity_service_id')->constarined()->cascadeOnDelete();
               $table->integer('customer_number');
               $table->integer('meter_number');
+              $table->enum('status',['non_active','active']);
             $table->timestamps();
         });
     }

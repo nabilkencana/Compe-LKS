@@ -38,7 +38,8 @@ class AuthController extends Controller
         $validated = $request->validate([
             'name' => 'required|string',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|confirmed'
+            'password' => 'required|confirmed',
+            'role' => 'nullable|in:customer,admin'
         ]);
 
         $user = User::create($validated);
@@ -51,4 +52,13 @@ class AuthController extends Controller
             ],201);
     }
     
+       public function me(Request $request) {
+        $user = $request->user();
+
+         return response()->json([
+                'success' => true,
+                'message' => 'User Retrieved successful.',
+                'data' => $user->items()
+            ],201);
+    }
 }
