@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('verified_by')->constrained('users')->cascadeOnDelete();
             $table->decimal('amount',12,2);
             $table->string('payment_method',50);
+            $table->string('payment_proof')->nullable();
             $table->enum('status',['pending','completed','rejected']);
             $table->date('verified_at')->isCurrent();
             $table->date('paid_at')->isCurrent();

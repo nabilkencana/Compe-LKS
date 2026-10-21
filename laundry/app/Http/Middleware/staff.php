@@ -15,12 +15,13 @@ class staff
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if ($request->user()->role !== 'staff') {
+        if ($request->user()->role === 'staff') {
+            return $next($request);
+            }
             return response()->json([
-            'message' => 'Forbidden Access!',
+            'message' => 'You are not authorized to access staff orders.',
             ],403);
-        }
-
-        return $next($request);
+            
+            
     }
 }

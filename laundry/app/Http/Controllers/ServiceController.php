@@ -30,7 +30,7 @@ class ServiceController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Services retrieved successfully.',
-            'data' => $ser
+            'data' => $ser->items()
         ],200);
     }
 

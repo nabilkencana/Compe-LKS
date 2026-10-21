@@ -15,12 +15,12 @@ class admin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if ($request->user()->role !== 'admins') {
-            return response()->json([
-            'message' => 'Forbidden Access!',
-            ],403);
+        if ($request->user()->role === 'admins') {
+            return $next($request);
         }
-
-        return $next($request);
+        return response()->json([
+            'message' => 'You are not authorized to access.',
+        ],403);
+            
     }
 }
