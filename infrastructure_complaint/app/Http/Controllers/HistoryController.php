@@ -10,13 +10,19 @@ class HistoryController extends Controller
 {
     public function histories(Request $r, string $id)
     {
-        $histories = Ticket::findOrFail($id);
+        $ticket = Ticket::findOrFail($id);
 
         $val = $r->validate([
             'note' => 'required|string'
         ]);
 
-        $histories = TicketHistory::create($val);
+        $histories = TicketHistory::create([
+            ...$val,
+            'user_id' => $r->user()->id,
+            'ticket_id' => $ticket->id,
+            'old_status' => $ticket->getOriginal('status'),
+            'new_status' => $ticket->status,
+        ]);
 
         return response()->json([
             'success' => true,
@@ -34,7 +40,7 @@ class HistoryController extends Controller
                 'success' => false,
                 'message' => 'Ticket not your own',
                 'data' => $histories
-            ],401);
+            ], 401);
         }
 
         return response()->json([

@@ -36,7 +36,7 @@ class TicketController extends Controller
 
         $ticket = Ticket::create([
             ...$val,
-            'created_by' => auth()->id(),
+            'created_by' => $r->user()->id,
             'ticket_number' => 'MKT' . '-' . now()->format('Y') . '-' . mt_rand(1, 9999),
             'complaint_id' => $complaint->id,
             'status' => 'open'
@@ -88,7 +88,7 @@ class TicketController extends Controller
 
         $ticket->update([
             ...$val,
-            'status' => 'resolve',
+            'status' => 'resolved',
             'resolved_at ' => now()
         ]);
         $ticket->history()->create([
@@ -112,6 +112,33 @@ class TicketController extends Controller
             'success' => true,
             'message' => 'Ticket Retrivied Successfully',
             'data' => $ticket,
+        ]);
+    }
+
+    public function show(Request $r , string $id){
+        $ticket = Ticket::findOrFail($id);
+
+        if ($r->user()->role !== 'staff'&&$r->user()->role !== 'admin' && $ticket->created_by === $r->user()->id) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Forbidden'
+            ], 403);
+        }
+
+        return response()->json([
+            'success' => false,
+            'message' => 'Ticket Retrivied Successfully',
+            'data' => $ticket
+        ]);
+    }
+
+    public function index(Request $r) {
+        $ticket = Ticket::where('assigned_to' , $r->user()->id)->get();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Ticket Retrivied Successfully',
+            'data' => $ticket
         ]);
     }
 }

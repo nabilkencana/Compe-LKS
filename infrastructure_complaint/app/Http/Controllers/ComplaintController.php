@@ -62,12 +62,12 @@ class ComplaintController extends Controller
      */
     public function show(Request $r, Complaint $complaint)
     {
-        // if ($r->user()->role === 'admin' || $complaint->user_id === $r->user()->id) {
-        //     return response()->json([
-        //         'success' => false,
-        //         'message' => 'Forbidden'
-        //     ], 403);
-        // }
+        if ($r->user()->role !== 'admin' && $complaint->user_id === $r->user()->id) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Forbidden'
+            ], 403);
+        }
 
         return response()->json([
             'message' => 'Complaint retrieved successfully.',
