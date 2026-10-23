@@ -39,11 +39,7 @@ class AuthController extends Controller
             'password' => 'required|min:6|confirmed',
         ]);
 
-        $usr = User::create([
-            'name' => $req->name,
-            'email' => $req->email,
-            'password' => Hash::make($req->password), 
-        ]);
+        $usr = User::create($val);
 
         $usr->refresh();
 

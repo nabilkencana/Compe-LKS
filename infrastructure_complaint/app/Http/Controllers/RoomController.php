@@ -16,7 +16,7 @@ class RoomController extends Controller
             ->orderBy('building')
             ->orderBy('room_number')
             ->get(['id', 'building', 'room_number', 'name' ,'is_active']);
- 
+
         return response()->json(['message' => 'Rooms retrieved successfully.', 'data' => $rooms], 200);
     }
 
@@ -53,7 +53,13 @@ class RoomController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $room = Room::findOrFail($id);
+
+        return response()->json([
+            'succes' => true,
+            'message' => 'Rooms retrieved successfully.',
+            'data' => $room
+        ]);
     }
 
     /**
@@ -69,7 +75,21 @@ class RoomController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $room = Room::findOrFail($id);
+
+        $val = $request->validate([
+            'building' => 'sometimes|string|unique:rooms,building',
+            'room_number' => 'sometimes|integer|min:1|unique:rooms,room_number',
+            'name' => 'sometimes|string',
+            'is_active' => 'in:true,false'
+        ]);
+
+        $room->update($val);
+
+        return response()->json([
+            'message' => 'Room Updated successfully.',
+            'data'    => $room,
+        ], 200);
     }
 
     /**
@@ -77,6 +97,8 @@ class RoomController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $room = Room::findOrFail($id);
+        $room->delete();
+        return response()->noContent();
     }
 }

@@ -52,7 +52,13 @@ class CategoryController extends Controller
      */
     public function show(string $id)
     {
-        //
+         $room = ComplaintCategory::findOrFail($id);
+
+        return response()->json([
+            'succes' => true,
+            'message' => 'Complaint Category retrieved successfully.',
+            'data' => $room
+        ]);
     }
 
     /**
@@ -68,7 +74,19 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+         $room = ComplaintCategory::findOrFail($id);
+
+        $val = $request->validate([
+            'name' => 'sometimes|string',
+            'description' => 'nullable|string',
+        ]);
+
+        $room->update($val);
+
+        return response()->json([
+            'message' => 'Complaint Category Updated successfully.',
+            'data'    => $room,
+        ], 200);
     }
 
     /**
@@ -76,6 +94,8 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+         $room = ComplaintCategory::findOrFail($id);
+         $room->delete();
+         return response()->noContent();
     }
 }

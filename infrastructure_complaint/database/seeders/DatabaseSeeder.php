@@ -25,14 +25,20 @@ class DatabaseSeeder extends Seeder
 
         $user = [
             [
-                'name' => "admin" , 
+                'name' => "admin" ,
                 'email' => "admin@example.com",
                 'password' => Hash::make('password123'),
                 'role' => "admin",
             ],
             [
-                'name' => "staff" , 
+                'name' => "staff" ,
                 'email' => "staff@example.com",
+                'password' => Hash::make('password123'),
+                'role' => "staff",
+            ],
+            [
+                'name' => "staff2" ,
+                'email' => "staff2@example.com",
                 'password' => Hash::make('password123'),
                 'role' => "staff",
             ],
