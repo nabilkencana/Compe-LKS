@@ -42,7 +42,7 @@ Route::prefix('v1')->group(function () {
         Route::get('tickets', [TicketController::class, 'all']);
         });
         Route::middleware(['auth:sanctum', 'role:staff,admin'])->group(function () {
-        Route::patch('tickets/{tickets}/histories', [HistoryController::class, 'resolve']);
+        Route::patch('tickets/{tickets}/resolve', [HistoryController::class, 'resolve']);
 
     });
 });
